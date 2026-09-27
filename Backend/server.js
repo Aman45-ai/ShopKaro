@@ -1,7 +1,5 @@
 import app from "./src/app.js";
 
-const port = 3000
-
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`)
+app.listen(process.env.PORT || 3000,"0.0.0.0",()=>{
+  console.log(`Server running on port ${process.env.PORT || 3000}`)
 })
