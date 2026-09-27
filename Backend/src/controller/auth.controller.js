@@ -42,10 +42,12 @@ const login = async (req, res) => {
 
         let passwordMatch
 
+
+
         if (emailMatch !== null) {
             passwordMatch = await bcrypt.compare(password, emailMatch.password)
         } else {
-            return res.status(401).send("Invalid Credentials")
+            return res.status(404).send("User not registered!")
         }
 
         if (passwordMatch) {
