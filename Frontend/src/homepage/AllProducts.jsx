@@ -22,7 +22,7 @@ const AllProducts = ({ products,fetchProducts }) => {
       price: product.price,
       image: null
     })
-    setPreviewImage(`http://localhost:3000/${product.image}`)
+    setPreviewImage(`${import.meta.env.VITE_API_URL}/${product.image}`)
   }
 
   const cancelEditing = () => {
@@ -212,7 +212,7 @@ const AllProducts = ({ products,fetchProducts }) => {
                 <div className="relative aspect-square w-full bg-neutral-100">
                   {product.image ? (
                     <img
-                      src={`http://localhost:3000/${product.image}`}
+                      src={`${import.meta.env.VITE_API_URL}/${product.image}`}
                       alt={product.title}
                       className="h-full w-full object-cover"
                     />
