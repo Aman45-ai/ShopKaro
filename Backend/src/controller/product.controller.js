@@ -10,7 +10,8 @@ const createProduct = async (req, res) => {
             image,
             title,
             description,
-            price
+            price,
+            owner: req.userId
         })
 
         res.status(201).send({

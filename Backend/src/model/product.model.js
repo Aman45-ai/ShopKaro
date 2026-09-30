@@ -19,6 +19,11 @@ const productSchema = new mongoose.Schema({
         type:Number,
         required:[true, "Price is required!"],
          min:[1,"Price must be greater than 0"]
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required:[true,"Owner is required!"]
     }
 })
 

@@ -19,6 +19,7 @@ const authMiddleware = (req, res, next) => {
     try {
         const verification = jwt.verify(token, config.ACCESS_SECRET_KEY)
         req.userId = verification.userId
+        req.role = verification.role
         next()
     } catch (error) {
         console.log("Error in verifying token", error)

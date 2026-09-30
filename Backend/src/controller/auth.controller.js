@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken'
 
 const signup = async (req, res) => {
     try {
-        const { name, email, password } = req.body
+        const { name, email, password, role } = req.body
 
         const emailMatch = await user.findOne({ email })
 
@@ -19,12 +19,14 @@ const signup = async (req, res) => {
         await user.create({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         })
 
         res.status(201).send({
             name,
             email,
+            role,
             message: "Registration Successfull"
         })
     } catch (error) {
@@ -42,8 +44,6 @@ const login = async (req, res) => {
 
         let passwordMatch
 
-
-
         if (emailMatch !== null) {
             passwordMatch = await bcrypt.compare(password, emailMatch.password)
         } else {
@@ -51,8 +51,8 @@ const login = async (req, res) => {
         }
 
         if (passwordMatch) {
-            const accessToken = jwt.sign({ userId: emailMatch._id }, config.ACCESS_SECRET_KEY, { expiresIn: '15m' })
-            const refreshToken = jwt.sign({ userId: emailMatch._id }, config.REFRESH_SECRET_KEY, { expiresIn: '7d' })
+            const accessToken = jwt.sign({ userId: emailMatch._id, role: emailMatch.role }, config.ACCESS_SECRET_KEY, { expiresIn: '15m' })
+            const refreshToken = jwt.sign({ userId: emailMatch._id, role: emailMatch.role }, config.REFRESH_SECRET_KEY, { expiresIn: '7d' })
 
             emailMatch.refreshToken = refreshToken
             await emailMatch.save()
@@ -65,6 +65,7 @@ const login = async (req, res) => {
 
             res.status(200).send({
                 message: "Login Successfull",
+                role: emailMatch.role,
                 accessToken
             })
         }
