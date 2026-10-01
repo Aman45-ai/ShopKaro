@@ -95,10 +95,9 @@ const Navbar = () => {
         </nav>
 
         <div className="ml-auto flex items-center gap-5">
-          {/* <Link to="/cart" aria-label="Cart" className="relative">
+          <Link to="/cart" aria-label="Cart" className="relative">
             <ShoppingCart className="h-5 w-5 text-neutral-700" />
-          </Link> */}
-
+          </Link> 
           <div className="relative" ref={menuRef}>
             <button
               type="button"

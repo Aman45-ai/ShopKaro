@@ -4,6 +4,7 @@ import router from './routes/auth.routes.js'
 import productRouter from './routes/product.routes.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import cartRouter from './routes/cart.routes.js'
 
 const app = express()
 connectDB()
@@ -25,5 +26,6 @@ app.use('/uploads', express.static('uploads'))
 
 app.use('/api/auth',router)
 app.use('/api',productRouter)
+app.use("/api",cartRouter)
 
 export default app
